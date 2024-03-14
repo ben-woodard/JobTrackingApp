@@ -26,4 +26,11 @@ public class Application {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    private enum status{
+        APPLIED,
+        FOLLOWED_UP,
+        INTERVIEW,
+        REJECTED,
+        JOB_OFFER
+    }
 }
