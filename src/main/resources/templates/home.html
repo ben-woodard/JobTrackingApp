@@ -7,8 +7,15 @@
 <body>
 <h1>Welcome [[${user.name}]]</h1>
 
-<a method="get" th:href="@{/createApplication}">Create New Application</a>
+<div th:if="${#lists.size(applications) > 0}">
+    <div th:each="app : ${applications}">
+        <span th:text="${app.company}"></span>
+    </div>
+</div>
+
+<a method="get" th:href="@{/createApplication/{userId} (userId=${user.userId})}">Create New Application</a>
 <!--<a method="get" th:href="@{/users}">Back</a>-->
+<!--<form method="post" th:action="@{/users/{userId}/account (userId=${user.userId})}">-->
 
 </body>
 </html>

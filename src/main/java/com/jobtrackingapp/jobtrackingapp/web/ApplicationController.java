@@ -7,6 +7,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
@@ -22,16 +23,17 @@ public class ApplicationController {
         this.applicationService = applicationService;
     }
 
-    @GetMapping("/createApplication")
+    @GetMapping("/createApplication/{userId}")
     public String createApplication(ModelMap model) {
         model.put("application", new Application());
         return "create-application";
     }
 
-    @PostMapping("/createApplication")
-    public String createApplication(Application application) {
-        System.out.println(application.getAppDate());
-        applicationService.save(application);
-        return "redirect:/home";
+    @PostMapping("/createApplication/{userId}")
+    public String createApplication(@PathVariable Long userId, Application application) {
+//        System.out.println(application.getAppDate());
+        applicationService.save(application, userId);
+
+        return "redirect:/home/" + userId;
     }
 }
