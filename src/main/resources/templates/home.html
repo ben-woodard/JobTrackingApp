@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Welcome!</title>
 </head>
 <body>
-<h1>Welcome Home!</h1>
+<h1>Welcome [[${user.name}]]</h1>
+
+<a method="get" th:href="@{/createApplication}">Create New Application</a>
+<!--<a method="get" th:href="@{/users}">Back</a>-->
 
 </body>
 </html>

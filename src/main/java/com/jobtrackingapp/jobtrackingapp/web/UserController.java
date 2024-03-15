@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -27,12 +28,18 @@ public class UserController {
     @PostMapping("/register")
     public String postRegister(ModelMap model, User newUser) {
         userService.saveUser(newUser);
-        return "redirect:/home";
+        Long userId = newUser.getUserId();
+        System.out.println(userId);
+        return "redirect:/home/" + newUser.getUserId();
     }
 
-    @GetMapping("/home")
-    public String getHome(ModelMap model, User existingUser){
-//        return userService.findById(existingUser);
+    @GetMapping("/home/{userId}")
+    public String getHome(ModelMap model, @PathVariable Long userId) {
+        User savedUser = userService.findById(userId);
+        if (savedUser == null) {
+            return "redirect:/register";
+        }
+        model.put("user", savedUser);
         return "home";
     }
 }

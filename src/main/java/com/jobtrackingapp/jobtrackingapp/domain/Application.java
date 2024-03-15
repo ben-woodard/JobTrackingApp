@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,10 +20,12 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appId;
-    private Date appDate;
+    private LocalDate appDate;
+    private Date followUpDate;
     private Boolean followUp;
     private Integer numberOfFollowUps;
     private String company;
+    private String jobTitle;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
